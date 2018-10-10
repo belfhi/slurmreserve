@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+	<h1>Partitions</h1>
+{% endblock %}
+
+{% block content %}
+{% for p in partitions %}
+  <a href="partitions/{{p['name']}}/reservations"><div class="list_entry center_text">{{ p['name'] }}</div></a>
+{% endfor %}
+
+{% endblock %}

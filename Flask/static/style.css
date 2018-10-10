@@ -1,0 +1,155 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+	background: #ddd;
+	padding: 10px;
+}
+
+
+.main{
+	margin: auto;
+    max-width: 70%;
+
+    border-bottom: 3px #cfcfcf solid; 
+    background-color: #eaeaea;
+}
+
+.content{
+	padding: 10px;
+	text-align: center;
+}
+
+header{
+	text-align: center;
+	background-color: #009fdf;
+	color: #ffffff;
+	border-bottom: 4px #0081b5 solid;
+
+	padding: 20px;
+}
+
+h1{
+	margin: 0px;
+}
+
+.list_entry{
+	display: block;
+	text-align: left;
+
+
+	background-color: #ffffff;
+	border-bottom: 2px #d7d7d7 solid;
+
+	padding: 10px;
+	margin-bottom: 5px;
+
+    font-weight: bold;
+}
+
+.list_entry:hover{
+	color: #F18F1F;
+	padding-left: 15px;
+	background-color: #fff8f4;
+	border-bottom-color: #fff8f4;
+}
+
+.list_entry_name{
+	font-weight: bold;
+	font-size: 18px;
+
+}
+
+.list_entry_text{
+	font-weight: normal;
+	color: black;
+	margin-right: 30px;
+	display: inline;
+	font-size: 14px;
+}
+
+
+a{
+	color: #000000;
+	text-decoration: none;
+}
+
+.toolbar{
+	display: flex;
+	height: 30px;
+	padding-top: 15px;
+	padding-left:  10px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+
+	text-align: left; 
+
+	color: white;
+
+	background-color:  #434343;
+	border-bottom: 4px #292929 solid;
+}
+
+.filter_box{
+	margin-right: 0px;
+    margin-left: auto;
+    width: 320px;
+
+    font-weight: bold; 
+}
+
+.button_tool{
+	text-align: center;
+
+	color:  #434343;
+	background-color: #ffffff;
+	border-bottom: 2px #d7d7d7 solid;
+
+	padding: 8px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.button_tool:hover{
+	color: #F18F1F;
+	background-color: #fff8f4;
+}
+
+.button_edit{
+	background-color: #434343;
+	border-bottom-color: #161616; 
+	color: white;
+	height: 10px;
+}
+
+.button_edit:hover{
+	color: #ffffff;
+	background-color:#252525;
+
+}
+
+.button_remove{
+	background-color: #ff6060;
+	border-bottom-color: #da4848;
+	color: white;
+}
+
+.button_remove:hover{
+	background-color: #e65757;
+	color: white;
+}
+
+.button_box{
+	width: 80px;
+	margin-right: 0px;
+	margin-left: auto;
+}
+
+.center_text{
+	text-align: center;
+}

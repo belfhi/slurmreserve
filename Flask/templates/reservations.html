@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>Reservations for Partition {{partition}}</h1>
+{% endblock %}
+
+{% block content %}
+
+	<div class="toolbar"><a href="/partitions/{{partition}}/new" class="button_tool">New</a> <div class="filter_box">Filter <input type="text" name="filter">  <a onclick="delete_prompt('{{partition}}')"  class="button_tool button_remove">Delete all</a></div> </div>
+
+	{% if reservations %}
+			{% for res in reservations %}
+				<div class="list_entry"> 
+					<div class="list_entry_name">{{partition}}</div>  
+					<div class="list_entry_text"> Nodes: {{res['node_cnt']}} </div>  
+					<div class="list_entry_text">Cores: {{res['core_cnt']}} </div>  
+					<div class="list_entry_text">Start: {{res['start_time']}} </div>  
+					<div class="list_entry_text">End: {{res['end_time']}} </div> 
+					<br> 
+					<div class="list_entry_text">User: {{res['users']}} </div>
+					<div class="button_box">
+					 	<a href="/partitions/{{partition}}/edit" class="button_tool button_edit">Edit</a> 
+						<a onclick="delete_prompt('{{partition}}')"  class="button_tool button_remove">X</a> 
+					</div>
+				</div>
+			{% endfor %}
+	{% else %}
+			<h2>No reservations found.<h2>
+	{% endif %}
+
+<script>
+	function delete_prompt(res){
+		var name = prompt("Are you sure you want to delete the reservationn " + res +"?\nReason:", "");
+	}
+</script>
+
+{% endblock %}
