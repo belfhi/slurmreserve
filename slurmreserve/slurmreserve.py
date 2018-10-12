@@ -6,7 +6,7 @@ import sys
 import pyslurm 
 
 def parse_time(timestamp):
-    return datetime.datetime.fromtimestamp(timestamp).strftime('%d %B %Y %H:%M:%S')
+    return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M:%S')
 
 def parse_reservation():
     pass
@@ -15,8 +15,8 @@ def create_dict():
     return res_dict
 
 def get_reservation(partition):
-	res = pyslurm.reservation()
-	res.get();
+	r = pyslurm.reservation()
+	res = r.get()
 	keys  = res.find("partition", partition)
 
 	reservations = []
