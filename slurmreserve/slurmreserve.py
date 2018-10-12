@@ -51,5 +51,5 @@ def update_reservation(res_dict):
 
 def delete_reservation(res_id, reason):
 	r = pyslurm.reservation()
-    r.delete(res_id, reason)
+    r.delete(res_id)
     return
