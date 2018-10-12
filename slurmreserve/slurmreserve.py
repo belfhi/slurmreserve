@@ -16,22 +16,37 @@ def create_dict():
     res_dict = pyslurm.create_reservation_dict()
     return res_dict
 
-def get_reservation(partition):
-	r = pyslurm.reservation()
-	res = r.get()
-	keys  = r.find("partition", partition)
+def get_all_reservations(partition):
+    r = pyslurm.reservation()
+    res = r.get()
+    keys  = r.find("partition", partition)
 
-	reservations = []
+    reservations = []
 
-	for key in keys:
-		tmp = r.find_id(key)
-		tmp["start_time"] = parse_time(tmp["start_time"])
-		tmp["end_time"] = parse_time(tmp["end_time"])
-		reservations.append(tmp)
+    for key in keys:
+        tmp = r.find_id(key)
+        tmp["name"] = key
+        tmp["start_time"] = parse_time(tmp["start_time"])
+        tmp["end_time"] = parse_time(tmp["end_time"])
+        reservations.append(tmp)
 
-	return reservations
+    return reservations
 
-def create_reservation(res_dict)
+def get_reservation(partition, res_id):
+    r = pyslurm.reservation()
+    res = r.get()
+    keys  = r.find("partition", partition)
+
+    for key in keys:
+        if key == res_id:
+            res[res_id]['name'] = key
+            res[res_id]["start_time"] = parse_time(res[res_id]["start_time"])
+            res[res_id]["end_time"] = parse_time(res[res_id]["end_time"])
+            break
+
+    return res[res_id]
+
+def create_reservation(res_dict):
     r = pyslurm.reservation()
     res_id = r.create(res_dict)
     return res_id
@@ -39,17 +54,21 @@ def create_reservation(res_dict)
 def get_partition(username):
     db = TinyDB('db.json')
     User = Query()
-    res = db.search(User.username == username)[0]
-    partitions = res['partition']
+    res = db.search(User.username == username)
+
+    if len(res) > 0:
+        partitions = res[0]['partitions']
+    else:
+        partitions = []
 
     return partitions
 
 def update_reservation(res_dict):
-	r = pyslurm.reservation()
+    r = pyslurm.reservation()
     r.update(res_dict)
     return 
 
 def delete_reservation(res_id, reason):
-	r = pyslurm.reservation()
+    r = pyslurm.reservation()
     r.delete(res_id)
     return

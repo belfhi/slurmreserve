@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+	<h1>Edit reservation {{res_id}} </h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+		Name: <input type="text" required value="{{reservation['name']}}">
+		Nodes: <input type="number" value="{{reservation['node_cnt']}}" min="1" required >
+		Start: <input type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
+		End: <input type="datetime-local" value="{{reservation['end_time']}}" min="{{now}}"s>
+
+		<input type="submit" value="Edit">
+	</form>
+{% endblock %}

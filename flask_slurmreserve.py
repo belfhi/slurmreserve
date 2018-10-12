@@ -1,5 +1,8 @@
+from slurmreserve import *
+import datetime
 from flask import Flask, redirect, request, render_template
-import slurmreserve import *
+
+
 
 
 app = Flask(__name__)
@@ -15,7 +18,7 @@ def showPartitions():
 @app.route('/partitions/<string:partition>/reservations')
 def showReservations(partition):
 	
-	reservations = get_reservation(partition);
+	reservations = get_all_reservations(partition);
 
 	if reservations:
 		return render_template('reservations.html', partition=partition, reservations=reservations)
@@ -25,14 +28,18 @@ def showReservations(partition):
 @app.route('/partitions/<string:partition>/new', methods=['GET', 'POST'])
 def newReservations(partition):
 	
+	if request.method == 'POST':
+		return redirect('/partitions/' + partition + '/reservations')
 
-	return "new"
 
-@app.route('/partitions/<string:partition>/edit', methods=['GET', 'POST'])
-def editReservations(partition):
+
+	return render_template('new.html', now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
+
+@app.route('/partitions/<string:partition>/<string:res_id>/edit', methods=['GET', 'POST'])
+def editReservations(partition, res_id):
 	
-
-	return "edit"
+	reservation = get_reservation(partition,  res_id);
+	return render_template('edit.html', res_id=res_id, reservation=reservation, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
 
 @app.route('/partitions/<string:partition>/delete', methods=['POST'])
 def deleteReservations(partition):

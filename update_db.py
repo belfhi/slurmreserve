@@ -3,7 +3,7 @@
 import sys
 from tinydb import TinyDB, Query
 
-db = TinyDB('slurmreserve/db.json')
+db = TinyDB('db.json')
 username = input('Enter Username: ')
 User = Query()
 result = db.search(User.username == username)
@@ -34,11 +34,11 @@ else:
             part_new = input('Enter partition to be added: ').replace(',', ' ').split()
             if part_new:
                 partitions = result['partitions'] + part_new
-                db.update({'partition': list(set(partitions))}, User.username == username)
+                db.update({'partitions': list(set(partitions))}, User.username == username)
             else:
                 break
     elif y == 'n':
         sys.exit(0)
     else:
         print('enter y or n')
-        sys.exit(1)
+        sys.exit(0)

@@ -102,10 +102,13 @@ a{
 }
 
 .button_tool{
+
 	text-align: center;
 
 	color:  #434343;
 	background-color: #ffffff;
+
+	border: none;
 	border-bottom: 2px #d7d7d7 solid;
 
 	padding: 8px;
@@ -124,8 +127,8 @@ a{
 	background-color: #434343;
 	border-bottom-color: #161616; 
 	color: white;
-	height: 10px;
 }
+
 
 .button_edit:hover{
 	color: #ffffff;

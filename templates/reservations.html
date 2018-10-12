@@ -11,7 +11,7 @@
 	{% if reservations %}
 			{% for res in reservations %}
 				<div class="list_entry"> 
-					<div class="list_entry_name">{{partition}}</div>  
+					<div class="list_entry_name">{{res['name']}}</div>  
 					<div class="list_entry_text"> Nodes: {{res['node_cnt']}} </div>  
 					<div class="list_entry_text">Cores: {{res['core_cnt']}} </div>  
 					<div class="list_entry_text">Start: {{res['start_time']}} </div>  
@@ -24,7 +24,7 @@
 						{% endfor %}
 					</div>
 					<div class="button_box">
-					 	<a href="/partitions/{{partition}}/edit" class="button_tool button_edit">Edit</a> 
+					 	<a href="/partitions/{{partition}}/{{res['name']}}/edit" class="button_tool button_edit">Edit</a> 
 						<a onclick="delete_prompt('{{partition}}')"  class="button_tool button_remove">X</a> 
 					</div>
 				</div>

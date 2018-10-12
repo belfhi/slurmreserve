@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+	<h1>New partition</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+		Name: <input type="text" required>
+		Nodes: <input type="number" value="1" min="1" required >
+		Start: <input type="datetime-local" value="{{now}}" min="{{now}}">
+		End: <input type="datetime-local" value="{{now}}" min="{{now}}"s>
+
+		<input type="submit" value="Create">
+	</form>
+{% endblock %}
