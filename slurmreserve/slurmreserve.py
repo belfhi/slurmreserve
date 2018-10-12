@@ -17,12 +17,12 @@ def create_dict():
 def get_reservation(partition):
 	r = pyslurm.reservation()
 	res = r.get()
-	keys  = res.find("partition", partition)
+	keys  = r.find("partition", partition)
 
 	reservations = []
 
 	for key in keys:
-		tmp = res.find_id(key)
+		tmp = r.find_id(key)
 		tmp["start_time"] = parse_time(tmp["start_time"])
 		tmp["end_time"] = parse_time(tmp["end_time"])
 		reservations.append(tmp)
