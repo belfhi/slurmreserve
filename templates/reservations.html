@@ -17,7 +17,12 @@
 					<div class="list_entry_text">Start: {{res['start_time']}} </div>  
 					<div class="list_entry_text">End: {{res['end_time']}} </div> 
 					<br> 
-					<div class="list_entry_text">User: {{res['users']}} </div>
+
+					<div class="list_entry_text">User: 
+						{% for user in res['users'] %}
+							{{user + " "}} 
+						{% endfor %}
+					</div>
 					<div class="button_box">
 					 	<a href="/partitions/{{partition}}/edit" class="button_tool button_edit">Edit</a> 
 						<a onclick="delete_prompt('{{partition}}')"  class="button_tool button_remove">X</a> 

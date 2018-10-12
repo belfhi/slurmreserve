@@ -7,7 +7,7 @@
 
 {% block content %}
 {% for p in partitions %}
-  <a href="partitions/{{p['name']}}/reservations"><div class="list_entry center_text">{{ p['name'] }}</div></a>
+  <a href="partitions/{{p}}/reservations"><div class="list_entry center_text">{{ p }}</div></a>
 {% endfor %}
 
 {% endblock %}
