@@ -4,14 +4,16 @@ import time
 import datetime
 import sys
 import pyslurm 
+from tinydb import TinyDB, Query
 
 def parse_time(timestamp):
     return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M:%S')
 
-def parse_reservation():
-    pass
+#def parse_reservation():
+#    pass
 
 def create_dict():
+    res_dict = pyslurm.create_reservation_dict()
     return res_dict
 
 def get_reservation(partition):
@@ -29,17 +31,25 @@ def get_reservation(partition):
 
 	return reservations
 
-def create_reservation(partition, *args):
+def create_reservation(res_dict)
+    r = pyslurm.reservation()
+    res_id = r.create(res_dict)
     return res_id
 
 def get_partition(username):
-	#Read users patitions from db
-	partitions = ["cms"]
+    db = TinyDB('db.json')
+    User = Query()
+    res = db.search(User.username == username)[0]
+    partitions = res['partition']
 
-	return partitions
+    return partitions
 
 def update_reservation(res_dict):
+	r = pyslurm.reservation()
+    r.update(res_dict)
     return 
 
 def delete_reservation(res_id, reason):
+	r = pyslurm.reservation()
+    r.delete(res_id, reason)
     return

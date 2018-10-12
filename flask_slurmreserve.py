@@ -1,12 +1,12 @@
 from flask import Flask, redirect, request, render_template
-import slurmreserve.slurmreserve as slurmreserve
+import slurmreserve import *
 
 
 app = Flask(__name__)
 
 @app.route('/')
 def showPartitions():
-	partitions = slurmreserve.get_partition("test")
+	partitions = get_partition("test")
 
 	return render_template('partitions.html', partitions=partitions)
 
@@ -15,7 +15,7 @@ def showPartitions():
 @app.route('/partitions/<string:partition>/reservations')
 def showReservations(partition):
 	
-	reservations = slurmreserve.get_reservation(partition);
+	reservations = get_reservation(partition);
 
 	if reservations:
 		return render_template('reservations.html', partition=partition, reservations=reservations)
