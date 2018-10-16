@@ -7,10 +7,11 @@
 
 {% block content %}
 	<form method="post">
-		Name: <input type="text" required value="{{reservation['name']}}">
-		Nodes: <input type="number" value="{{reservation['node_cnt']}}" min="1" required >
-		Start: <input type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
-		End: <input type="datetime-local" value="{{reservation['end_time']}}" min="{{now}}"s>
+		Name: <input name="name" type="text" required value="{{reservation['name']}}">
+		Nodes: <input name="node_cnt" type="number" value="{{reservation['node_cnt']}}" min="1" required >
+		Start: <input name="start_time" type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
+		End: <input name="end_time" type="datetime-local" value="{{reservation['end_time']}}" min="{{now}}"s>
+		
 
 		<input type="submit" value="Edit">
 	</form>
