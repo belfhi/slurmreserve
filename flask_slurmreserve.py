@@ -29,6 +29,11 @@ def showReservations(partition):
 def newReservations(partition):
 	
 	if request.method == 'POST':
+		dic = create_dict()
+		dic['name'] = request.form['name']
+		dic['node_cnt'] = request.form['node_cnt']
+		dic['start_time'] = request.form['start_time']
+		dic['end_time'] = request.form['end_time']
 		return redirect('/partitions/' + partition + '/reservations')
 
 
@@ -37,7 +42,16 @@ def newReservations(partition):
 
 @app.route('/partitions/<string:partition>/<string:res_id>/edit', methods=['GET', 'POST'])
 def editReservations(partition, res_id):
-	
+
+	if request.method == 'POST':
+		dic = create_dict()
+		dic['name'] = request.form['name']
+		dic['node_cnt'] = request.form['node_cnt']
+		dic['start_time'] = request.form['start_time']
+		dic['end_time'] = request.form['end_time']
+
+		return redirect('/partitions/' + partition + '/reservations')
+
 	reservation = get_reservation(partition,  res_id);
 	return render_template('edit.html', res_id=res_id, reservation=reservation, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
 

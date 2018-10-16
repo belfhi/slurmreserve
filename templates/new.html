@@ -7,10 +7,10 @@
 
 {% block content %}
 	<form method="post">
-		Name: <input type="text" required>
-		Nodes: <input type="number" value="1" min="1" required >
-		Start: <input type="datetime-local" value="{{now}}" min="{{now}}">
-		End: <input type="datetime-local" value="{{now}}" min="{{now}}"s>
+		Name: <input name="name" type="text" required>
+		Nodes: <input name="node_cnt" type="number" value="1" min="1" required >
+		Start: <input name="start_time" type="datetime-local" value="{{now}}" min="{{now}}">
+		End: <input name="end_time" type="datetime-local" value="{{now}}" min="{{now}}"s>
 
 		<input type="submit" value="Create">
 	</form>
