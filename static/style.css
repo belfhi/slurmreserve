@@ -2,13 +2,13 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    min-width: 550px;
 }
 
 body{
 	background: #ddd;
 	padding: 10px;
 }
-
 
 .main{
 	margin: auto;
@@ -19,27 +19,29 @@ body{
 }
 
 .content{
-	padding: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	text-align: center;
 }
 
 header{
+	display: flex;
 	text-align: center;
-	background-color: #009fdf;
-	color: #ffffff;
-	border-bottom: 4px #0081b5 solid;
+	background-color: #ffffff;
+	color: #009fdf;
+	border-bottom: 4px #009fdf solid;
 
 	padding: 20px;
 }
 
 h1{
+	width: 100%;
 	margin: 0px;
 }
 
 .list_entry{
 	display: block;
 	text-align: left;
-
 
 	background-color: #ffffff;
 	border-bottom: 2px #d7d7d7 solid;
@@ -52,7 +54,7 @@ h1{
 
 .list_entry:hover{
 	color: #F18F1F;
-	padding-left: 15px;
+	margin-left: 8px;
 	background-color: #fff8f4;
 	border-bottom-color: #fff8f4;
 }
@@ -70,7 +72,6 @@ h1{
 	display: inline;
 	font-size: 14px;
 }
-
 
 a{
 	color: #000000;
@@ -116,6 +117,8 @@ a{
     font-weight: bold;
 
     cursor: pointer;
+
+    margin-left: 5px;
 }
 
 .button_tool:hover{
@@ -133,7 +136,6 @@ a{
 .button_edit:hover{
 	color: #ffffff;
 	background-color:#252525;
-
 }
 
 .button_remove{
@@ -148,6 +150,7 @@ a{
 }
 
 .button_box{
+	display: flex;
 	width: 80px;
 	margin-right: 0px;
 	margin-left: auto;

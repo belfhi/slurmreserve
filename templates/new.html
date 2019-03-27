@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+	<div class="toolbar"> <a href="/partitions/{{partition}}/reservations" class="button_tool"> Back </a></div>
 	<form method="post">
 		Name: <input name="name" type="text" required>
 		Nodes: <input name="node_cnt" type="number" value="1" min="1" required >

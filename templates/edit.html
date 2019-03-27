@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+	<div class="toolbar"> <a href="/" class="button_tool"> Back </a></div>
 	<form method="post">
 		Name: <input name="name" type="text" required value="{{reservation['name']}}">
 		Nodes: <input name="node_cnt" type="number" value="{{reservation['node_cnt']}}" min="1" required >

@@ -1,1 +1,1 @@
-{"_default": {"1": {}, "2": {"username": "reppinjo", "partition": "maxwell", "time": 24}, "3": {"username": "reppinjo", "partition": "maxwell", "time": 24}}}
+{"_default": {"1": {"username": "reppinjo", "partitions": ["cms", "atlas", "belle2", "petra3"]}, "2": {"username": "roses", "partitions": ["cms", "maxwell"]}, "3": {"username": "test", "partitions": ["all", "cms", "maxwell", "all", "bl1","upex"], "partition": ["maxwell", "all"]}}}
