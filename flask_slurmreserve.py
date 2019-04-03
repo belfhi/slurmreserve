@@ -4,6 +4,9 @@ from flask import Flask, redirect, request, render_template
 
 app = Flask(__name__)
 
+app.config['LDAP_PROVIDER_URL'] = ""
+
+
 @app.route('/')
 def showPartitions():
 	partitions = get_partition("test")
@@ -47,7 +50,7 @@ def newReservations(partition):
 		dic['start_time'] = request.form['start_time']
 		dic['end_time'] = request.form['end_time']
 		res_id = create_reservation(dic)
-		print ("REST_ID: " + res_id)
+		print ("RES_ID: " + res_id)
 		return redirect('/partitions/' + partition + '/reservations')
 
 	return render_template('new.html',  partition=partition, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
