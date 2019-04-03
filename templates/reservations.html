@@ -35,7 +35,13 @@
 
 <script>
 	function delete_prompt(res){
-		var name = prompt("Are you sure you want to delete the reservationn " + res +"?\nReason:", "");
+		 if(confirm("Are you sure you want to delete the reservationn " + res +"?\nReason:", "")){
+		 	
+		 	xhttp.open("POST", "/partitions/{{partition}}/reservations/" + res + "/delete", true);
+			xhttp.send();
+		 } else {
+
+		 }
 	}
 
 	function filter(res){

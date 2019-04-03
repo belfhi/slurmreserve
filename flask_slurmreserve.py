@@ -46,6 +46,8 @@ def newReservations(partition):
 		dic['node_cnt'] = request.form['node_cnt']
 		dic['start_time'] = request.form['start_time']
 		dic['end_time'] = request.form['end_time']
+		res_id = create_reservation(dic)
+		print ("REST_ID: " + res_id)
 		return redirect('/partitions/' + partition + '/reservations')
 
 	return render_template('new.html',  partition=partition, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
@@ -65,9 +67,11 @@ def editReservations(partition, res_id):
 	reservation = get_reservation(partition,  res_id);
 	return render_template('edit.html', partition=partition, res_id=res_id, reservation=reservation, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
 
-@app.route('/partitions/reservations/<string:partition>/reservations/delete', methods=['POST'])
-def deleteReservations(partition):
-	
+@app.route('/partitions/reservations/<string:partition>/reservations/<string:res_id>/delete', methods=['POST'])
+def deleteReservations(partition, res_id):
+	if request.method == 'POST':
+		print(res_id);
+
 	return "delete"
 
 
