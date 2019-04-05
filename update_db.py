@@ -27,29 +27,29 @@ class Database:
             return True
        
     def add_partition(self, user, partition):
-        self.db.update(self.User.username == username, {'partition': partition})
+        partitions = result['partitions'] + part_new
+        self.db.update({ 'partitions' : list(set(partitions))}, User.username == username)
         return 
 
 if __name__ == '__main__':
     DB = Database()
     username = input('Enter Username: ')
-    if not DB.check_user():
+    User = Query()
+    if not DB.check_user(username):
         pass
         
-
+    result = DB.get_userentry(username)
 
 
     if len(result) > 0:
         result = result[0]
         print('your current allowed partitions are: {}'.format(result['partitions']))
         while True:
-            result = db.search(User.username == username)[0]
             y = input('add another partition? y/n ')
             if y == 'y':
                 part_new = input('Enter new partition name(s): ').replace(',', ' ').split()
                 if part_new:
-                    partitions = result['partitions'] + part_new
-                    db.update({ 'partitions' : list(set(partitions))}, User.username == username)
+                    DB.add_partition(username, part_new)
                 else:
                     print('no new partitions given')
             else:
@@ -59,13 +59,13 @@ if __name__ == '__main__':
     else:
         y = input('User not found, create new? y/n: ')
         if y == 'y':
-            db.insert({'username': username, 'partitions': []})
+            DB.insert({'username': username, 'partitions': []})
             while True:
-                result = db.search(User.username == username)[0]
+                result = DB.search(User.username == username)[0]
                 part_new = input('Enter partition to be added: ').replace(',', ' ').split()
                 if part_new:
                     partitions = result['partitions'] + part_new
-                    db.update({'partitions': list(set(partitions))}, User.username == username)
+                    DB.update({'partitions': list(set(partitions))}, User.username == username)
                 else:
                     break
         elif y == 'n':
