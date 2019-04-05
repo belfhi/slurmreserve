@@ -47,23 +47,31 @@ def showFilteredReservations(partition, filter_string):
 def newReservations(partition):
 	
 	now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S");
+	error = False
 
 	if request.method == 'POST':
-
-		
 		dic = create_dict()
 		dic['name'] = request.form['name']
 		dic['node_cnt'] = (int)(request.form['node_cnt'])
 
-		dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['start_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
-		dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
-		dic["users"] = "roses"
+		try:
+			dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['start_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+			dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		except:
+			print("Can't parse time.")
+			error = True
+
+		dic["users"] = request.form['users'].replace(" ", "")
 		dic["partition"] = partition
 		
 		try:
 			res_id = create_reservation(dic)
 		except ValueError as e:
-			return render_template('new.html',  partition=partition, error="value error", name=dic['name'], node_cnt=dic['node_cnt'], now=now, start_time=request.form['start_time'], end_time=request.form['end_time'])
+			error = True
+
+		if error:
+			return render_template('new.html',  partition=partition, error="value error", name=dic['name'], node_cnt=dic['node_cnt'], now=now, 
+				start_time=request.form['start_time'], end_time=request.form['end_time'], users=dic["users"])
 
 		return redirect('/partitions/' + partition + '/reservations')
 
@@ -74,28 +82,59 @@ def newReservations(partition):
 @app.route('/partitions/<string:partition>/reservations/<string:res_id>/edit', methods=['GET', 'POST'])
 def editReservations(partition, res_id):
 
+	error = False
+	dic = {}
+	startTime = ""
+	endTime = ""
+
 	if request.method == 'POST':
 		dic = create_dict()
 		dic['name'] = res_id
 		dic['node_cnt'] = (int)(request.form['node_cnt'])
-		if request.args.has_key('start_time'):
-			dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['start_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
-		dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		dic["users"] = request.form['users'].replace(" ", "")
 
 		try:
-			update_reservation(dic)
+			startTime = request.form['start_time']
+			if request.args.has_key('start_time'):
+				dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(startTime, "%Y-%m-%dT%H:%M:%S").timetuple()))
+
+			endTime = request.form['end_time']
+			dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		except:
+			print("Can't parse time.")
+
+		try:
+			res = update_reservation(dic)
+
+			print(res);
+			if res == 0:
+				return redirect('/partitions/' + partition + '/reservations')
+
 		except ValueError as e:
-			return "Error on edit"
+				print("Error on edit")
+		error = True		
 
-		return redirect('/partitions/' + partition + '/reservations')
+		
+	
+	reservation = dic
+	reservation['start_time'] = startTime
+	reservation['end_time'] = endTime
 
-	reservation = get_reservation(partition,  res_id);
+	showStartTimeInput = True
+
+	if not error:
+		reservation = get_reservation(partition,  res_id);
+		reservation['users'] = ",".join(reservation['users'])
+
+	try:
+		startTime = datetime.datetime.strptime(reservation['start_time'], "%Y-%m-%dT%H:%M:%S")
+		showStartTimeInput = (startTime > datetime.datetime.now())
+	except:			
+		print("Can't parse time.")
+
 	now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S");
-	startTime = datetime.datetime.strptime(reservation['start_time'], "%Y-%m-%dT%H:%M:%S")
 
-
-	return render_template('edit.html', partition=partition, res_id=res_id, reservation=reservation, showStart= (startTime > datetime.datetime.now())
-	 ,now=now)
+	return render_template('edit.html', partition=partition, error=error, res_id=res_id, reservation=reservation, showStart=showStartTimeInput, now=now)
 
 @app.route('/partitions/<string:partition>/reservations/<string:res_id>/delete', methods=['POST'])
 def deleteReservations(partition, res_id):

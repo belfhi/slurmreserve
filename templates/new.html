@@ -11,10 +11,16 @@
 		{% if error %}
 			<div class="error_box"> One or more values are incorrect. </div>
 		{% endif %}
-		Name: <input name="name" type="text" value="{{name}}" required>
-		Nodes: <input name="node_cnt" type="number" value="1" min="1" value="{{node_cnt}}" required >
-		Start: <input name="start_time" type="datetime-local" value="{{start_time}}" min="{{now}}">
-		End: <input name="end_time" type="datetime-local" value="{{end_time}}" min="{{now}}"s>
+		<div class="input_users_box">
+			Name: <input name="name" type="text" value="{{name}}" required>
+			Nodes: <input name="node_cnt" type="number" value="1" min="1" value="{{node_cnt}}" required >
+		</div>
+		<div class="input_users_box">
+			Start: <input name="start_time" type="datetime-local" value="{{start_time}}" min="{{now}}">
+			End: <input name="end_time" type="datetime-local" value="{{end_time}}" min="{{now}}"s>
+		</div>
+
+		<div class="input_users_box"> User: <input class="input_users" name="users" placeholder="User1, User2..." type="text" value="{{users}}" required > </div>
 
 		<input type="submit" value="Create">
 	</form>

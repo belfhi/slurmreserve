@@ -37,14 +37,20 @@ def get_reservation(partition, res_id):
     res = r.get()
     keys  = r.find("partition", partition)
 
+    found = False;
+
     for key in keys:
         if key == res_id:
             res[res_id]['name'] = key
             res[res_id]["start_time"] = parse_time(res[res_id]["start_time"])
             res[res_id]["end_time"] = parse_time(res[res_id]["end_time"])
+            found = True;
             break
 
-    return res[res_id]
+    if found:
+        return res[res_id]
+    else:
+        return create_dict()
 
 def create_reservation(res_dict):
     r = pyslurm.reservation()
@@ -66,10 +72,8 @@ def get_partition(username):
 
 def update_reservation(res_dict):
     r = pyslurm.reservation()
-    r.update(res_dict)
-    return 
+    return r.update(res_dict)
 
 def delete_reservation(res_id, reason):
     r = pyslurm.reservation()
-    r.delete(res_id)
-    return
+    return r.delete(res_id)

@@ -7,14 +7,18 @@
 
 {% block content %}
 	<div class="toolbar"> <a href="/partitions/{{partition}}/reservations" class="button_tool"> Back </a></div>
+	{% if error %}
+		<div class="error_box"> One or more values are incorrect. </div>
+	{% endif %}
 	<form method="post">
 		Nodes: <input name="node_cnt" type="number" value="{{reservation['node_cnt']}}" min="1" required >
 		{% if showStart %}
 			Start: <input name="start_time" type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
 		{% endif %}
 		End: <input name="end_time" type="datetime-local" value="{{reservation['end_time']}}" min="{{now}}"s>
-		
 
-		<input type="submit" value="Edit">
+		<div class="input_users_box" >User: <input class="input_users" name="users" type="text" value="{{reservation['users']}}" required > </div>
+
+		<input  type="submit" value="Edit">
 	</form>
 {% endblock %}

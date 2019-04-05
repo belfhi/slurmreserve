@@ -9,6 +9,7 @@ body{
 	padding: 10px;
 }
 
+
 .main{
 	margin: auto;
     max-width: 70%;
@@ -16,7 +17,7 @@ body{
     border-bottom: 2px #cfcfcf solid; 
     background-color: #eaeaea;
 
-    min-width: 400px;
+    min-width: 430px;
 }
 
 .content{
@@ -168,4 +169,11 @@ a{
 	border-bottom: #cfcfcf solid 1px;
 	margin-bottom: 20px;
     padding: 5px;
+}
+
+.input_users_box{
+	margin: 10px;
+}
+.input_users{
+	width: 90%;
 }
