@@ -48,6 +48,7 @@ def get_reservation(partition, res_id):
 
 def create_reservation(res_dict):
     r = pyslurm.reservation()
+    print (res_dict)
     res_id = r.create(res_dict)
     return res_id
 

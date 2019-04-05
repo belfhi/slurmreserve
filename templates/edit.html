@@ -6,11 +6,12 @@
 {% endblock %}
 
 {% block content %}
-	<div class="toolbar"> <a href="/" class="button_tool"> Back </a></div>
+	<div class="toolbar"> <a href="/partitions/{{partition}}/reservations" class="button_tool"> Back </a></div>
 	<form method="post">
-		Name: <input name="name" type="text" required value="{{reservation['name']}}">
 		Nodes: <input name="node_cnt" type="number" value="{{reservation['node_cnt']}}" min="1" required >
-		Start: <input name="start_time" type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
+		{% if showStart %}
+			Start: <input name="start_time" type="datetime-local" value="{{reservation['start_time']}}" min="{{now}}">
+		{% endif %}
 		End: <input name="end_time" type="datetime-local" value="{{reservation['end_time']}}" min="{{now}}"s>
 		
 

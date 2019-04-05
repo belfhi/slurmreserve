@@ -1,11 +1,14 @@
 from slurmreserve import *
 import datetime
+import time
+import mimetypes
 from flask import Flask, redirect, request, render_template
 
 app = Flask(__name__)
 
 app.config['LDAP_PROVIDER_URL'] = ""
 
+mimetypes.add_type('image/svg+xml', '.svg')
 
 @app.route('/')
 def showPartitions():
@@ -43,38 +46,62 @@ def showFilteredReservations(partition, filter_string):
 @app.route('/partitions/<string:partition>/reservations/new', methods=['GET', 'POST'])
 def newReservations(partition):
 	
+	now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S");
+
 	if request.method == 'POST':
+
+		
 		dic = create_dict()
 		dic['name'] = request.form['name']
-		dic['node_cnt'] = request.form['node_cnt']
-		dic['start_time'] = request.form['start_time']
-		dic['end_time'] = request.form['end_time']
-		res_id = create_reservation(dic)
-		print ("RES_ID: " + res_id)
+		dic['node_cnt'] = (int)(request.form['node_cnt'])
+
+		dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['start_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		dic["users"] = "roses"
+		dic["partition"] = partition
+		
+		try:
+			res_id = create_reservation(dic)
+		except ValueError as e:
+			return render_template('new.html',  partition=partition, error="value error", name=dic['name'], node_cnt=dic['node_cnt'], now=now, start_time=request.form['start_time'], end_time=request.form['end_time'])
+
 		return redirect('/partitions/' + partition + '/reservations')
 
-	return render_template('new.html',  partition=partition, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
+		
+	return render_template('new.html',  partition=partition, now=now, start_time=now, end_time=now)
+
 
 @app.route('/partitions/<string:partition>/reservations/<string:res_id>/edit', methods=['GET', 'POST'])
 def editReservations(partition, res_id):
 
 	if request.method == 'POST':
 		dic = create_dict()
-		dic['name'] = request.form['name']
-		dic['node_cnt'] = request.form['node_cnt']
-		dic['start_time'] = request.form['start_time']
-		dic['end_time'] = request.form['end_time']
+		dic['name'] = res_id
+		dic['node_cnt'] = (int)(request.form['node_cnt'])
+		if request.args.has_key('start_time'):
+			dic['start_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['start_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+		dic['end_time'] = (int)(time.mktime(datetime.datetime.strptime(request.form['end_time'], "%Y-%m-%dT%H:%M:%S").timetuple()))
+
+		try:
+			update_reservation(dic)
+		except ValueError as e:
+			return "Error on edit"
 
 		return redirect('/partitions/' + partition + '/reservations')
 
 	reservation = get_reservation(partition,  res_id);
-	return render_template('edit.html', partition=partition, res_id=res_id, reservation=reservation, now=datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"))
+	now = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S");
+	startTime = datetime.datetime.strptime(reservation['start_time'], "%Y-%m-%dT%H:%M:%S")
 
-@app.route('/partitions/reservations/<string:partition>/reservations/<string:res_id>/delete', methods=['POST'])
+
+	return render_template('edit.html', partition=partition, res_id=res_id, reservation=reservation, showStart= (startTime > datetime.datetime.now())
+	 ,now=now)
+
+@app.route('/partitions/<string:partition>/reservations/<string:res_id>/delete', methods=['POST'])
 def deleteReservations(partition, res_id):
 	if request.method == 'POST':
-		print(res_id);
-
+		try:
+			delete_reservation(res_id,"test")
+		except ValueError as e:
+			return "Error on delete"
 	return "delete"
-
-

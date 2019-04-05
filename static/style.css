@@ -2,7 +2,6 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    min-width: 550px;
 }
 
 body{
@@ -14,8 +13,10 @@ body{
 	margin: auto;
     max-width: 70%;
 
-    border-bottom: 3px #cfcfcf solid; 
+    border-bottom: 2px #cfcfcf solid; 
     background-color: #eaeaea;
+
+    min-width: 400px;
 }
 
 .content{
@@ -27,9 +28,10 @@ body{
 header{
 	display: flex;
 	text-align: center;
+	align-items: center;
 	background-color: #ffffff;
 	color: #009fdf;
-	border-bottom: 4px #009fdf solid;
+	border-bottom: 3px #009fdf solid;
 
 	padding: 20px;
 }
@@ -44,7 +46,7 @@ h1{
 	text-align: left;
 
 	background-color: #ffffff;
-	border-bottom: 2px #d7d7d7 solid;
+	border-bottom: 1px #d7d7d7 solid;
 
 	padding: 10px;
 	margin-bottom: 5px;
@@ -56,7 +58,7 @@ h1{
 	color: #F18F1F;
 	margin-left: 8px;
 	background-color: #fff8f4;
-	border-bottom-color: #fff8f4;
+
 }
 
 .list_entry_name{
@@ -91,7 +93,7 @@ a{
 	color: white;
 
 	background-color:  #434343;
-	border-bottom: 4px #292929 solid;
+	border-bottom: 3px #292929 solid;
 }
 
 .filter_box{
@@ -158,4 +160,12 @@ a{
 
 .center_text{
 	text-align: center;
+}
+
+.error_box{
+	color: red;
+	background-color: #fff;
+	border-bottom: #cfcfcf solid 1px;
+	margin-bottom: 20px;
+    padding: 5px;
 }

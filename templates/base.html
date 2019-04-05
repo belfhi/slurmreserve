@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
+	<meta http-equiv="content-type" content="image/svg+xml">
 	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 	<body>
 
 		<div class="main">
 			<header>
-				<svg width="90" height="90">
+				<svg width="100" height="90">
   					<image xlink:href="{{ url_for('static', filename='desy_logo_3c_web.svg') }}" height="80" width="80"/>
 				</svg> 
 				{% block header %}{% endblock %}
